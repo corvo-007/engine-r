@@ -1,0 +1,6 @@
+[submodule "lib/engine-m"]
+	path = lib/engine-m
+	url = https://github.com/corvo-007/engine-m.git
+[submodule "lib/glfw"]
+	path = lib/glfw
+	url = https://github.com/glfw/glfw.git
