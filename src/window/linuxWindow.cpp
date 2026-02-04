@@ -1,5 +1,3 @@
-#pragma once
-
 #include "engine-r/window/linuxWindow.h"
 
 #include <stdexcept>
