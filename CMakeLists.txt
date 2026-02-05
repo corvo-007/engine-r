@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 find_package(OpenGL REQUIRED)
+find_package(SDL2 REQUIRED)
 
 option(EngineR_build_tests "Build test files" OFF)
 option(EngineM_build_tests "Build test files" OFF)
@@ -23,4 +24,4 @@ target_include_directories(EngineR PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/glfw/include
 )
 
-target_link_libraries(EngineR PRIVATE EngineM glfw OpenGL::GL)
+target_link_libraries(EngineR PRIVATE EngineM glfw OpenGL::GL SDL2::SDL2)
