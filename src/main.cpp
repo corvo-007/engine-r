@@ -5,8 +5,9 @@
 // #include "engine-r/window/window.h"
 
 #include <SDL2/SDL.h>
-#include <vector>
 #include <cstdint>
+
+#include "engine-r/renderer/renderer.h"
 
 int main() {
     constexpr int WIDTH = 800, HEIGHT = 600;
@@ -30,6 +31,8 @@ int main() {
 
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
+    EngineR::Renderer renderer(WIDTH, HEIGHT);
+
     bool running = true;
     SDL_Event event;
     while (running) {
@@ -38,9 +41,9 @@ int main() {
                 running = false;
         }
 
-        std::vector<std::uint32_t> framebuffer(WIDTH * HEIGHT);
+        const uint32_t *framebuffer = renderer.getFramebuffer().data();
 
-        SDL_UpdateTexture(fbTexture, nullptr, framebuffer.data(), WIDTH * sizeof(uint32_t));
+        SDL_UpdateTexture(fbTexture, nullptr, framebuffer, WIDTH * sizeof(uint32_t));
 
         SDL_RenderClear(sdlRenderer);
         SDL_RenderCopy(sdlRenderer, fbTexture, nullptr, nullptr);
