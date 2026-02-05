@@ -15,14 +15,17 @@ namespace EngineR {
             std::swap(p1, p2);
         }
 
+        float y = static_cast<float>(p1.y);
+        float slope = static_cast<float>(p2.y - p1.y) / static_cast<float>(p2.x - p1.x);
+
         for (int x = p1.x; x <= p2.x; x++) {
-            int y = static_cast<int>(std::round(p1.y + static_cast<float>(p2.y - p1.y) / (p2.x - p1.x) * (x - p1.x)));
             if (steep) {
                 framebuffer.set(y, x, color);
             }
             else {
                 framebuffer.set(x, y, color);
             }
+            y += slope;
         }
     }
 }
