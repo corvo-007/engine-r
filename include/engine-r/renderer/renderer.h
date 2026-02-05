@@ -11,6 +11,7 @@ namespace EngineR {
         Renderer(int width, int height);
 
         void setPoint(const EngineM::vec2 &p, std::uint32_t color);
+        void drawLine(const EngineM::vec2 &p1, const EngineM::vec2 &p2, std::uint32_t color);
 
         [[nodiscard]] const Framebuffer& getFramebuffer() const;
     };

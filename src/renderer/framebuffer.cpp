@@ -7,12 +7,12 @@ namespace EngineR {
         if (x < 0 || x >= w || y < 0 || y >= h) {
             return 0;
         }
-        return buffer[x + y * w];
+        return buffer[x + (h - y) * w];
     }
 
     void Framebuffer::set(const int x, const int y, const std::uint32_t color) {
         if (x >= 0 && x < w && y >= 0 && y < h) {
-            buffer[x + y * w] = color;
+            buffer[x + (h - y) * w] = color;
         }
     }
 
