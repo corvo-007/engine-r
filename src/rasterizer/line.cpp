@@ -3,8 +3,8 @@
 #include <cmath>
 
 namespace EngineR {
-    void line(EngineM::vec2 p1, EngineM::vec2 p2, std::uint32_t color, Framebuffer &framebuffer) {
-        bool steep = std::abs(p2.y - p1.y) > std::abs(p2.x - p1.x);
+    void line(EngineM::vec2 p1, EngineM::vec2 p2, const std::uint32_t color, Framebuffer &framebuffer) {
+        const bool steep = std::abs(p2.y - p1.y) > std::abs(p2.x - p1.x);
 
         if (steep) {
             std::swap(p1.x, p1.y);
@@ -15,8 +15,8 @@ namespace EngineR {
             std::swap(p1, p2);
         }
 
-        float y = static_cast<float>(p1.y);
-        float slope = static_cast<float>(p2.y - p1.y) / static_cast<float>(p2.x - p1.x);
+        int y = p1.y;
+        int ierror = 0;
 
         for (int x = p1.x; x <= p2.x; x++) {
             if (steep) {
@@ -25,7 +25,13 @@ namespace EngineR {
             else {
                 framebuffer.set(x, y, color);
             }
-            y += slope;
+
+            ierror += 2 * std::abs(p2.y - p1.y);
+
+            if (ierror > p2.x - p1.x) {
+                y += p2.y > p1.y ? 1 : -1;
+                ierror -= 2 * (p2.x - p1.x);
+            }
         }
     }
 }
