@@ -38,9 +38,10 @@ int main() {
         EngineM::vec2 p2 = EngineM::vec2{12, 37} * 10;
         EngineM::vec2 p3 = EngineM::vec2{62, 53} * 10;
 
-        renderer.drawLine(p1, p2, RED);
-        renderer.drawLine(p2, p3, GREEN);
-        renderer.drawLine(p3, p1, BLUE);
+        renderer.drawLine(p1, p2, BLUE);
+        renderer.drawLine(p3, p2, GREEN);
+        renderer.drawLine(p3, p1, YELLOW);
+        renderer.drawLine(p1, p3, RED);
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
 
