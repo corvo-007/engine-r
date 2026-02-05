@@ -2,11 +2,17 @@
 
 #include <cmath>
 
+#include "engine-r/rasterizer/line.h"
+
 namespace EngineR {
     Renderer::Renderer(const int width, const int height) : framebuffer(width, height) {}
 
     void Renderer::setPoint(const EngineM::vec2 &p, const std::uint32_t color) {
-        framebuffer.set(static_cast<int>(std::round(p.x)), framebuffer.height() - static_cast<int>(std::round(p.y)), color);
+        framebuffer.set(static_cast<int>(std::round(p.x)), static_cast<int>(std::round(p.y)), color);
+    }
+
+    void Renderer::drawLine(const EngineM::vec2 &p1, const EngineM::vec2 &p2, const std::uint32_t color) {
+        line(p1, p2, color, framebuffer);
     }
 
     const Framebuffer& Renderer::getFramebuffer() const {

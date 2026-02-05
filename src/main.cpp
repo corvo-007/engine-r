@@ -34,9 +34,13 @@ int main() {
                 running = false;
         }
 
-        renderer.setPoint(EngineM::vec2{7, 3} * 10, WHITE);
-        renderer.setPoint(EngineM::vec2{12, 37} * 10, WHITE);
-        renderer.setPoint(EngineM::vec2{62, 53} * 10, WHITE);
+        EngineM::vec2 p1 = EngineM::vec2{7, 3} * 10;
+        EngineM::vec2 p2 = EngineM::vec2{12, 37} * 10;
+        EngineM::vec2 p3 = EngineM::vec2{62, 53} * 10;
+
+        renderer.drawLine(p1, p2, RED);
+        renderer.drawLine(p2, p3, GREEN);
+        renderer.drawLine(p3, p1, BLUE);
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
 
