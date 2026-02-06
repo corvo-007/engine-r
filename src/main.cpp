@@ -6,7 +6,10 @@
 
 #include <SDL2/SDL.h>
 #include <cstdint>
+#include <random>
 
+#include "engine-r/renderer/object.h"
+#include "engine-r/reader/objectreader.h"
 #include "engine-r/renderer/renderer.h"
 
 constexpr std::uint32_t WHITE = 0xffffffff;
@@ -15,14 +18,32 @@ constexpr std::uint32_t GREEN = 0x00ff0000;
 constexpr std::uint32_t BLUE = 0x0000ff00;
 constexpr std::uint32_t YELLOW = 0xffff0000;
 
+std::vector<std::uint32_t> generate_random_numbers(size_t n, int start, int end) {
+    std::vector<std::uint32_t> numbers;
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<std::uint32_t> dist(start, end);
+
+    for (int i = 0; i < n; i++) {
+        numbers.push_back(dist(gen));
+    }
+
+    return numbers;
+}
+
 int main() {
-    constexpr int WIDTH = 1920, HEIGHT = 1080;
+    constexpr int WIDTH = 800, HEIGHT = 800;
 
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window *window = SDL_CreateWindow("Engine-R", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
+
+    EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/african_head.obj");
+
+    std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
 
     EngineR::Renderer renderer(WIDTH, HEIGHT);
 
@@ -34,10 +55,17 @@ int main() {
                 running = false;
         }
 
+        for (int i = 0; i < object.n_faces(); i++) {
+            auto v1 = object.vertex(i, 0);
+            auto v2 = object.vertex(i, 1);
+            auto v3 = object.vertex(i, 2);
 
-        renderer.drawTriangle({70, 450}, {350, 1000}, { 450, 600 }, RED);
-        renderer.drawTriangle({1200, 350}, {900, 50}, {450, 1070}, WHITE);
-        renderer.drawTriangle({1150, 830}, {800, 900}, {850, 1070}, GREEN);
+            auto p1 = renderer.transform(v1);
+            auto p2 = renderer.transform(v2);
+            auto p3 = renderer.transform(v3);
+
+            renderer.drawTriangle(p1, p2, p3, colors[i]);
+        }
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
 

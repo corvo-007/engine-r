@@ -8,6 +8,11 @@
 namespace EngineR {
     Renderer::Renderer(const int width, const int height) : framebuffer(width, height) {}
 
+    EngineM::vec2 Renderer::transform(const EngineM::vec3f &p) const {
+        auto t = (p + EngineM::vec3f{1, 1, 1}) / 2;
+        return {static_cast<int>(t.x * framebuffer.width()), static_cast<int>(t.y * framebuffer.height())};
+    }
+
     void Renderer::setPoint(const EngineM::vec2 &p, const std::uint32_t color) {
         framebuffer.set(static_cast<int>(std::round(p.x)), static_cast<int>(std::round(p.y)), color);
     }
