@@ -16,7 +16,7 @@ constexpr std::uint32_t BLUE = 0x0000ff00;
 constexpr std::uint32_t YELLOW = 0xffff0000;
 
 int main() {
-    constexpr int WIDTH = 640, HEIGHT = 640;
+    constexpr int WIDTH = 1920, HEIGHT = 1080;
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -34,14 +34,10 @@ int main() {
                 running = false;
         }
 
-        EngineM::vec2 p1 = EngineM::vec2{7, 3} * 10;
-        EngineM::vec2 p2 = EngineM::vec2{12, 37} * 10;
-        EngineM::vec2 p3 = EngineM::vec2{62, 53} * 10;
 
-        renderer.drawLine(p1, p2, BLUE);
-        renderer.drawLine(p3, p2, GREEN);
-        renderer.drawLine(p3, p1, YELLOW);
-        renderer.drawLine(p1, p3, RED);
+        renderer.drawTriangle({70, 450}, {350, 1000}, { 450, 600 }, RED);
+        renderer.drawTriangle({1200, 350}, {900, 50}, {450, 1070}, WHITE);
+        renderer.drawTriangle({1150, 830}, {800, 900}, {850, 1070}, GREEN);
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
 
