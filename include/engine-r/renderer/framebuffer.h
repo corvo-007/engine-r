@@ -4,7 +4,7 @@
 
 namespace EngineR {
     class Framebuffer {
-        std::pmr::vector<std::uint32_t> buffer;
+        std::vector<std::uint32_t> buffer;
         int w;
         int h;
 
