@@ -8,9 +8,9 @@
 namespace EngineR {
     Renderer::Renderer(const int width, const int height) : framebuffer(width, height) {}
 
-    EngineM::vec2 Renderer::transform(const EngineM::vec3f &p) const {
+    EngineM::vec3 Renderer::transform(const EngineM::vec3f &p) const {
         auto t = (p + EngineM::vec3f{1, 1, 1}) / 2;
-        return {static_cast<int>(t.x * framebuffer.width()), static_cast<int>(t.y * framebuffer.height())};
+        return {static_cast<int>(t.x * framebuffer.width()), static_cast<int>(t.y * framebuffer.height()), static_cast<int>(t.z * 255)};
     }
 
     void Renderer::setPoint(const EngineM::vec2 &p, const std::uint32_t color) {
@@ -21,7 +21,7 @@ namespace EngineR {
         line(p1, p2, color, framebuffer);
     }
 
-    void Renderer::drawTriangle(const EngineM::vec2 &p1, const EngineM::vec2 &p2, const EngineM::vec2 &p3, const std::uint32_t color) {
+    void Renderer::drawTriangle(const EngineM::vec3 &p1, const EngineM::vec3 &p2, const EngineM::vec3 &p3, const std::uint32_t color) {
         triangle(p1, p2, p3, color, framebuffer);
     }
 
