@@ -13,16 +13,31 @@ namespace EngineR {
         return {static_cast<int>(t.x * framebuffer.width()), static_cast<int>(t.y * framebuffer.height()), static_cast<int>(t.z * 255)};
     }
 
-    void Renderer::setPoint(const EngineM::vec2 &p, const std::uint32_t color) {
-        framebuffer.set(static_cast<int>(std::round(p.x)), static_cast<int>(std::round(p.y)), color);
+    EngineM::vec3f Renderer::perspective(const EngineM::vec3f &p) const {
+        return p / (1 - p.z / camera.z);
     }
 
-    void Renderer::drawLine(const EngineM::vec2 &p1, const EngineM::vec2 &p2, const std::uint32_t color) {
-        line(p1, p2, color, framebuffer);
+    void Renderer::setCamera(const EngineM::vec3f &camera) {
+        this -> camera = camera;
     }
 
-    void Renderer::drawTriangle(const EngineM::vec3 &p1, const EngineM::vec3 &p2, const EngineM::vec3 &p3, const std::uint32_t color) {
-        triangle(p1, p2, p3, color, framebuffer);
+    void Renderer::setPoint(const EngineM::vec3f &p, const std::uint32_t color) {
+        const auto t = transform(p);
+        framebuffer.set(t.x, t.y, color);
+    }
+
+    void Renderer::drawLine(const EngineM::vec3f &p1, const EngineM::vec3f &p2, const std::uint32_t color) {
+        const auto t1 = transform(p1);
+        const auto t2 = transform(p2);
+        line(t1, t2, color, framebuffer);
+    }
+
+    void Renderer::drawTriangle(const EngineM::vec3f &p1, const EngineM::vec3f &p2, const EngineM::vec3f &p3, const std::uint32_t color) {
+        const auto t1 = transform(perspective(p1));
+        const auto t2 = transform(perspective(p2));
+        const auto t3 = transform(perspective(p3));
+
+        triangle(t1, t2, t3, color, framebuffer);
     }
 
     const Framebuffer& Renderer::getFramebuffer() const {

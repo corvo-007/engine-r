@@ -46,6 +46,7 @@ int main() {
     std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
 
     EngineR::Renderer renderer(WIDTH, HEIGHT);
+    renderer.setCamera({0, 0, 10});
 
     bool running = true;
     SDL_Event event;
@@ -60,11 +61,11 @@ int main() {
             auto v2 = object.vertex(i, 1);
             auto v3 = object.vertex(i, 2);
 
-            auto p1 = renderer.transform(v1);
-            auto p2 = renderer.transform(v2);
-            auto p3 = renderer.transform(v3);
+            v1 = v1.rotate(30, {0, 1, 0});
+            v2 = v2.rotate(30, {0, 1, 0});
+            v3 = v3.rotate(30, {0, 1, 0});
 
-            renderer.drawTriangle(p1, p2, p3, colors[i]);
+            renderer.drawTriangle(v1, v2, v3, colors[i]);
         }
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
