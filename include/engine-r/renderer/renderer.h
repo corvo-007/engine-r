@@ -1,8 +1,7 @@
 #pragma once
 #include "framebuffer.h"
 
-#include "engine-m/vector/vector2d.h"
-#include "engine-m/vector/vector3d.h"
+#include "engine-m/vector/vector.h"
 
 namespace EngineR {
     class Renderer {

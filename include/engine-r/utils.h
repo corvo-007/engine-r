@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "engine-m/vector/vector3d.h"
+#include "engine-m/vector/vector.h"
 
 namespace EngineR {
     std::pair<EngineM::vec3, EngineM::vec3> get_bounding_box(const EngineM::vec3 &p1, const EngineM::vec3 &p2, const EngineM::vec3 &p3);
