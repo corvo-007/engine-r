@@ -14,7 +14,7 @@ namespace EngineR {
             return {{}, {}};
         }
 
-        std::vector<EngineM::vec3f> vertices;
+        std::vector<EngineM::vec3d> vertices;
         std::vector<EngineM::vec3> face_indices;
 
         std::string line;
@@ -22,7 +22,7 @@ namespace EngineR {
             std::istringstream iss(line);
             char trash;
             if (line.starts_with("v ")) {
-                EngineM::vec3f v;
+                EngineM::vec3d v;
                 iss >> trash >> v[0] >> v[1] >> v[2];
                 vertices.push_back(v);
             }

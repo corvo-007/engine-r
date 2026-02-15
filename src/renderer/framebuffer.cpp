@@ -1,7 +1,9 @@
 #include "engine-r/renderer/framebuffer.h"
 
+#include <limits>
+
 namespace EngineR {
-    Framebuffer::Framebuffer(const int w, const int h): buffer(w * h), zbuffer(w * h), w(w), h(h) {}
+    Framebuffer::Framebuffer(const int w, const int h): buffer(w * h), zbuffer(w * h, std::numeric_limits<double>::lowest()), w(w), h(h) {}
 
     std::uint32_t Framebuffer::get(const int x, const int y) const {
         if (x < 0 || x >= w || y < 0 || y >= h) {
@@ -16,14 +18,14 @@ namespace EngineR {
         }
     }
 
-    std::uint32_t Framebuffer::get_z(const int x, const int y) const {
+    double Framebuffer::get_z(const int x, const int y) const {
         if (x < 0 || x >= w || y < 0 || y >= h) {
             return 0;
         }
         return zbuffer[x + (h - 1 - y) * w];
     }
 
-    void Framebuffer::set_z(const int x, const int y, const std::uint32_t z) {
+    void Framebuffer::set_z(const int x, const int y, const double z) {
         if (x >= 0 && x < w && y >= 0 && y < h) {
             zbuffer[x + (h - 1 - y) * w] = z;
         }
@@ -41,7 +43,7 @@ namespace EngineR {
         return buffer.data();
     }
 
-    const std::uint32_t* Framebuffer::z_data() const {
+    const double* Framebuffer::z_data() const {
         return zbuffer.data();
     }
 }
