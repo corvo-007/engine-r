@@ -33,7 +33,7 @@ std::vector<std::uint32_t> generate_random_numbers(size_t n, int start, int end)
 }
 
 int main() {
-    constexpr int WIDTH = 800, HEIGHT = 800;
+    constexpr int WIDTH = 1080, HEIGHT = 1080;
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -46,7 +46,7 @@ int main() {
     std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
 
     EngineR::Renderer renderer(WIDTH, HEIGHT);
-    renderer.setCamera({0, 0, 10});
+    renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
 
     bool running = true;
     SDL_Event event;
@@ -60,10 +60,6 @@ int main() {
             auto v1 = object.vertex(i, 0);
             auto v2 = object.vertex(i, 1);
             auto v3 = object.vertex(i, 2);
-
-            v1 = v1.rotate(30, {0, 1, 0});
-            v2 = v2.rotate(30, {0, 1, 0});
-            v3 = v3.rotate(30, {0, 1, 0});
 
             renderer.drawTriangle(v1, v2, v3, colors[i]);
         }

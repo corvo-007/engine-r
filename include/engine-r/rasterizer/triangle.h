@@ -6,5 +6,5 @@
 #include "engine-r/renderer/framebuffer.h"
 
 namespace EngineR {
-    void triangle(const EngineM::vec3 &p1, const EngineM::vec3 &p2, const EngineM::vec3 &p3, const std::uint32_t color, Framebuffer &framebuffer);
+    void triangle(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const EngineM::vec3d &p3, std::uint32_t color, Framebuffer &framebuffer);
 }
