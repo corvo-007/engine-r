@@ -11,6 +11,7 @@
 #include "engine-r/renderer/object.h"
 #include "engine-r/reader/objectreader.h"
 #include "engine-r/renderer/renderer.h"
+#include "engine-r/shaders/shader.h"
 
 constexpr std::uint32_t WHITE = 0xffffffff;
 constexpr std::uint32_t RED = 0xff000000;
@@ -42,6 +43,7 @@ int main() {
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
     EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/diablo3_pose.obj");
+    object.shader = new EngineR::DefaultShader();
 
     std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
 
@@ -61,7 +63,9 @@ int main() {
             auto v2 = object.vertex(i, 1);
             auto v3 = object.vertex(i, 2);
 
-            renderer.drawTriangle(v1, v2, v3, colors[i]);
+            dynamic_cast<EngineR::DefaultShader*>(object.shader) -> color = colors[i];
+
+            renderer.drawTriangle(v1, v2, v3, object.shader);
         }
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
