@@ -1,4 +1,6 @@
 #pragma once
+
+#include "engine-r/color.h"
 #include "framebuffer.h"
 #include "engine-r/shaders/shader.h"
 #include "engine-m/matrix/matrix.h"
@@ -36,8 +38,8 @@ namespace EngineR {
         void lookAt(const EngineM::vec3d &position, const EngineM::vec3d &target, const EngineM::vec3d &up);
         void setViewport(int x, int y, int w, int h);
 
-        void setPoint(const EngineM::vec3d &p, std::uint32_t color);
-        void drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, std::uint32_t color);
+        void setPoint(const EngineM::vec3d &p, Color color);
+        void drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, Color color);
         void drawTriangle(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const EngineM::vec3d &p3, Shader *shader);
 
         [[nodiscard]] const EngineM::mat4d& getModelView() const;

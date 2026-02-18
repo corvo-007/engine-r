@@ -1,10 +1,11 @@
 #pragma once
-#include <cstdint>
 #include <vector>
+
+#include "engine-r/color.h"
 
 namespace EngineR {
     class Framebuffer {
-        std::vector<std::uint32_t> buffer;
+        std::vector<Color> buffer;
         std::vector<double> zbuffer;
         int w;
         int h;
@@ -12,8 +13,8 @@ namespace EngineR {
     public:
         Framebuffer(int w, int h);
 
-        [[nodiscard]] std::uint32_t get(int x, int y) const;
-        void set(int x, int y, std::uint32_t color);
+        [[nodiscard]] Color get(int x, int y) const;
+        void set(int x, int y, Color color);
 
         [[nodiscard]] double get_z(int x, int y) const;
         void set_z(int x, int y, double z);

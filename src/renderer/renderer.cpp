@@ -50,12 +50,12 @@ namespace EngineR {
         viewportMatrix = EngineM::mat4d({w / 2., 0, 0, x + w / 2., 0, h / 2., 0, y + h / 2., 0, 0, 1, 0, 0, 0, 0, 1});
     }
 
-    void Renderer::setPoint(const EngineM::vec3d &p, const std::uint32_t color) {
+    void Renderer::setPoint(const EngineM::vec3d &p, const Color color) {
         const auto t = transform(p);
         framebuffer.set(t.x, t.y, color);
     }
 
-    void Renderer::drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const std::uint32_t color) {
+    void Renderer::drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const Color color) {
         const auto t1 = transform(p1);
         const auto t2 = transform(p2);
 

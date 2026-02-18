@@ -13,6 +13,6 @@ namespace EngineR {
         PhongShader(const EngineM::vec3d &light, int shininess);
 
         EngineM::vec4d vertex(EngineM::vec3d v, const VShaderInput &input) override;
-        std::pair<bool, uint32_t> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
+        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
     };
 }

@@ -5,14 +5,14 @@
 namespace EngineR {
     Framebuffer::Framebuffer(const int w, const int h): buffer(w * h), zbuffer(w * h, std::numeric_limits<double>::lowest()), w(w), h(h) {}
 
-    std::uint32_t Framebuffer::get(const int x, const int y) const {
+    Color Framebuffer::get(const int x, const int y) const {
         if (x < 0 || x >= w || y < 0 || y >= h) {
-            return 0;
+            return {};
         }
         return buffer[x + (h - 1 - y) * w];
     }
 
-    void Framebuffer::set(const int x, const int y, const std::uint32_t color) {
+    void Framebuffer::set(const int x, const int y, const Color color) {
         if (x >= 0 && x < w && y >= 0 && y < h) {
             buffer[x + (h - 1 - y) * w] = color;
         }
@@ -40,7 +40,7 @@ namespace EngineR {
     }
 
     const std::uint32_t* Framebuffer::data() const {
-        return buffer.data();
+        return reinterpret_cast<const uint32_t*>(buffer.data());
     }
 
     const double* Framebuffer::z_data() const {

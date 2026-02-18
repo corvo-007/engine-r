@@ -3,7 +3,7 @@
 #include <cmath>
 
 namespace EngineR {
-    void line(EngineM::vec3 p1, EngineM::vec3 p2, const std::uint32_t color, Framebuffer &framebuffer) {
+    void line(EngineM::vec3 p1, EngineM::vec3 p2, const Color color, Framebuffer &framebuffer) {
         const bool steep = std::abs(p2.y - p1.y) > std::abs(p2.x - p1.x);
 
         if (steep) {

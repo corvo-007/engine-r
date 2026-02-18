@@ -16,7 +16,7 @@ namespace EngineR {
         return input.perspectiveMatrix * result;
     }
 
-    std::pair<bool, uint32_t> PhongShader::fragment(EngineM::vec3d bar, const FShaderInput &input) {
+    std::pair<bool, Color> PhongShader::fragment(EngineM::vec3d bar, const FShaderInput &input) {
         EngineM::vec3d edge1 = vertices[1] - vertices[0];
         EngineM::vec3d edge2 = vertices[2] - vertices[0];
 
@@ -28,17 +28,15 @@ namespace EngineR {
         EngineM::vec3d reflected = n * ln * 2 - light;
         reflected.normalise();
 
-        uint8_t r = 255, g = 255, b = 255;
+        Color color = {255, 255, 255, 255};
 
         double ambient = .3;
         double diffuse = .4 * std::max(0., ln);
         double specular = .9 * std::pow(std::max(0., reflected.z), shininess);
 
-        r *= std::min(1., ambient + diffuse + specular);
-        g *= std::min(1., ambient + diffuse + specular);
-        b *= std::min(1., ambient + diffuse + specular);
-
-        uint32_t color = r << 24 | g << 16 | b << 8 | 0xff;
+        color.r *= std::min(1., ambient + diffuse + specular);
+        color.g *= std::min(1., ambient + diffuse + specular);
+        color.b *= std::min(1., ambient + diffuse + specular);
 
         return {false, color};
 

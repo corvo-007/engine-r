@@ -4,6 +4,7 @@
 
 #include "engine-m/vector/vector.h"
 #include "engine-m/matrix/matrix.h"
+#include "engine-r/color.h"
 
 namespace EngineR {
     struct VShaderInput {
@@ -18,16 +19,16 @@ namespace EngineR {
     class Shader {
     public:
         virtual EngineM::vec4d vertex(EngineM::vec3d v, const VShaderInput &input) = 0;
-        [[nodiscard]] virtual std::pair<bool, uint32_t> fragment(EngineM::vec3d bar, const FShaderInput &input) = 0;
+        [[nodiscard]] virtual std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) = 0;
 
         virtual ~Shader() = default;
     };
 
     class DefaultShader : public Shader {
     public:
-        uint32_t color;
+        Color color;
 
         EngineM::vec4d vertex(EngineM::vec3d v, const VShaderInput &input) override;
-        std::pair<bool, uint32_t> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
+        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
     };
 }
