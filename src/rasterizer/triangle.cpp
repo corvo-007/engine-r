@@ -25,6 +25,8 @@ namespace EngineR {
         int p_max_x = static_cast<int>(p_max.x);
         int p_max_y = static_cast<int>(p_max.y);
 
+        FShaderInput input;
+
         for (int y = p_min_y; y <= p_max_y; y++) {
             for (int x = p_min_x; x <= p_max_x; x++) {
                 double alpha = signed_triangle_area({x, y, 0}, p2, p3) / total_signed_area;
@@ -35,7 +37,7 @@ namespace EngineR {
                     continue;
                 }
 
-                auto [discard, color] = shader -> fragment({alpha, beta, gamma});
+                auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input);
 
                 if (discard) {
                     continue;
