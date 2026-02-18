@@ -22,7 +22,6 @@ namespace EngineR {
         EngineM::mat4d modelViewMatrix;
         EngineM::mat4d perspectiveMatrix;
         EngineM::mat4d viewportMatrix;
-        EngineM::mat4d mvp;
 
     public:
         Renderer(int width, int height);
@@ -40,6 +39,8 @@ namespace EngineR {
         void setPoint(const EngineM::vec3d &p, std::uint32_t color);
         void drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, std::uint32_t color);
         void drawTriangle(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const EngineM::vec3d &p3, Shader *shader);
+
+        [[nodiscard]] const EngineM::mat4d& getModelView() const;
 
         [[nodiscard]] const Framebuffer& getFramebuffer() const;
     };

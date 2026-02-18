@@ -44,7 +44,6 @@ namespace EngineR {
 
         calculateModelViewMatrix();
         calculatePerspectiveMatrix();
-        mvp = perspectiveMatrix * modelViewMatrix;
     }
 
     void Renderer::setViewport(const int x, const int y, const int w, const int h) {
@@ -66,13 +65,18 @@ namespace EngineR {
     }
 
     void Renderer::drawTriangle(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const EngineM::vec3d &p3, Shader *shader) {
-        auto t1 = shader -> vertex(p1, mvp);
-        auto t2 = shader -> vertex(p2, mvp);
-        auto t3 = shader -> vertex(p3, mvp);
+        VShaderInput input(modelViewMatrix, perspectiveMatrix);
+        auto t1 = shader -> vertex(p1, input);
+        auto t2 = shader -> vertex(p2, input);
+        auto t3 = shader -> vertex(p3, input);
 
         const EngineM::vec4d v[3] = {t1, t2, t3};
 
         triangle(v, shader, viewportMatrix, framebuffer);
+    }
+
+    const EngineM::mat4d& Renderer::getModelView() const {
+        return modelViewMatrix;
     }
 
     const Framebuffer& Renderer::getFramebuffer() const {

@@ -11,6 +11,7 @@
 #include "engine-r/renderer/object.h"
 #include "engine-r/reader/objectreader.h"
 #include "engine-r/renderer/renderer.h"
+#include "engine-r/shaders/phong.h"
 #include "engine-r/shaders/shader.h"
 
 constexpr std::uint32_t WHITE = 0xffffffff;
@@ -43,12 +44,15 @@ int main() {
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
     EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/diablo3_pose.obj");
-    object.shader = new EngineR::DefaultShader();
 
     std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
 
     EngineR::Renderer renderer(WIDTH, HEIGHT);
     renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
+
+    EngineM::vec4d l = renderer.getModelView() * EngineM::vec4d{1, 1, 1, 1};
+
+    object.shader = new EngineR::PhongShader({l.x, l.y, l.z}, 64);
 
     bool running = true;
     SDL_Event event;
@@ -62,8 +66,6 @@ int main() {
             auto v1 = object.vertex(i, 0);
             auto v2 = object.vertex(i, 1);
             auto v3 = object.vertex(i, 2);
-
-            dynamic_cast<EngineR::DefaultShader*>(object.shader) -> color = colors[i];
 
             renderer.drawTriangle(v1, v2, v3, object.shader);
         }
