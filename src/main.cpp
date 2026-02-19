@@ -52,7 +52,7 @@ int main() {
 
     EngineM::vec4d l = renderer.getModelView() * EngineM::vec4d{1, 1, 1, 1};
 
-    object.shader = new EngineR::PhongShader({l.x, l.y, l.z}, 64);
+    object.shader = new EngineR::PhongShader(l.xyz(), 64);
 
     bool running = true;
     SDL_Event event;

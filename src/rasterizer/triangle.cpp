@@ -6,13 +6,9 @@ namespace EngineR {
     void triangle(const EngineM::vec4d v[3], Shader *shader, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
         EngineM::vec4d ndc[3] = {{v[0] / v[0].w}, {v[1] / v[1].w}, {v[2] / v[2].w}};
 
-        EngineM::vec4d t1 = viewportMatrix * ndc[0];
-        EngineM::vec4d t2 = viewportMatrix * ndc[1];
-        EngineM::vec4d t3 = viewportMatrix * ndc[2];
-
-        EngineM::vec3d p1 = {t1.x, t1.y, t1.z};
-        EngineM::vec3d p2 = {t2.x, t2.y, t2.z};
-        EngineM::vec3d p3 = {t3.x, t3.y, t3.z};
+        EngineM::vec3d p1 = (viewportMatrix * ndc[0]).xyz();
+        EngineM::vec3d p2 = (viewportMatrix * ndc[1]).xyz();
+        EngineM::vec3d p3 = (viewportMatrix * ndc[2]).xyz();
 
         auto [ p_min, p_max ] = get_bounding_box(p1, p2, p3);
         const double total_signed_area = signed_triangle_area(p1, p2, p3);

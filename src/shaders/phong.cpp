@@ -9,9 +9,9 @@ namespace EngineR {
     }
 
     EngineM::vec4d PhongShader::vertex(EngineM::vec3d v, const VShaderInput &input) {
-        EngineM::vec4d result = input.modelViewMatrix * EngineM::vec4d{v.x, v.y, v.z, 1};
+        EngineM::vec4d result = input.modelViewMatrix * EngineM::vec4d{v, 1};
 
-        vertices[i] = {result.x, result.y, result.z};
+        vertices[i] = result.xyz();
         i = (i + 1) % 3;
         return input.perspectiveMatrix * result;
     }

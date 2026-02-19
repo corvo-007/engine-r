@@ -29,12 +29,12 @@ namespace EngineR {
     }
 
     EngineM::vec3d Renderer::transform(const EngineM::vec3d &p) const {
-        EngineM::vec4d t = perspectiveMatrix * modelViewMatrix * EngineM::vec4d{p.x, p.y, p.z, 1.0};
+        EngineM::vec4d t = perspectiveMatrix * modelViewMatrix * EngineM::vec4d{p, 1.0};
         t /= t.w;
 
         t = viewportMatrix * t;
 
-        return {t.x, t.y, t.z};
+        return t.xyz();
     }
 
     void Renderer::lookAt(const EngineM::vec3d &position, const EngineM::vec3d &target, const EngineM::vec3d &up) {

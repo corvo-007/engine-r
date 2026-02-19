@@ -2,7 +2,7 @@
 
 namespace EngineR {
     EngineM::vec4d DefaultShader::vertex(const EngineM::vec3d v, const VShaderInput &input) {
-        return input.perspectiveMatrix * input.modelViewMatrix * EngineM::vec4d{v.x, v.y, v.z, 1.0};
+        return input.perspectiveMatrix * input.modelViewMatrix * EngineM::vec4d{v, 1.0};
     }
 
     std::pair<bool, Color> DefaultShader::fragment(EngineM::vec3d bar, const FShaderInput &input) {
