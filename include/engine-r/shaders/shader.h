@@ -10,14 +10,17 @@ namespace EngineR {
     struct VShaderInput {
         EngineM::mat4d modelViewMatrix;
         EngineM::mat4d perspectiveMatrix;
+        EngineM::mat3d normalMatrix;
+        EngineM::vec3d normal;
     };
 
     struct VShaderOutput {
         EngineM::vec4d vertex;
+        EngineM::vec3d normal;
     };
 
     struct FShaderInput {
-
+        EngineM::vec3d normal;
     };
 
     class Shader {

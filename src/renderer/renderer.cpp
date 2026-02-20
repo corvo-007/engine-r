@@ -21,6 +21,9 @@ namespace EngineR {
         m.normalise();
 
         modelViewMatrix = EngineM::mat4d{{l.x, l.y, l.z, 0, m.x, m.y, m.z, 0, n.x, n.y, n.z, 0, 0, 0, 0, 1}} * EngineM::mat4d{{1, 0, 0, -camera.target.x, 0, 1, 0, -camera.target.y, 0, 0, 1, -camera.target.z, 0, 0, 0, 1}};
+        normalMatrix = EngineM::mat3d{{l.x, l.y, l.z, m.x, m.y, m.z, n.x, n.y, n.z}};
+        normalMatrix.inverse();
+        normalMatrix.transpose();
     }
 
     void Renderer::calculatePerspectiveMatrix() {
@@ -71,9 +74,10 @@ namespace EngineR {
     void Renderer::drawTriangle(const Face &face, Shader *shader) {
         VShaderOutput output[3];
 
-        VShaderInput input(modelViewMatrix, perspectiveMatrix);
+        VShaderInput input(modelViewMatrix, perspectiveMatrix, normalMatrix);
 
         for (int i = 0; i < 3; i++) {
+            input.normal = face.normals[i];
             output[i] = shader -> vertex(face.vertices[i], input);
         }
 

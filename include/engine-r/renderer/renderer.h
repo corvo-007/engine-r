@@ -22,6 +22,7 @@ namespace EngineR {
         EngineM::mat4d modelViewMatrix;
         EngineM::mat4d perspectiveMatrix;
         EngineM::mat4d viewportMatrix;
+        EngineM::mat3d normalMatrix;
         Camera camera;
 
         Framebuffer framebuffer;
