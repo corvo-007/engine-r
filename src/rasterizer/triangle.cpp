@@ -9,6 +9,11 @@ namespace EngineR {
         v[1] = vertex_output[1].vertex;
         v[2] = vertex_output[2].vertex;
 
+        EngineM::vec3d n[3];
+        n[0] = vertex_output[0].normal;
+        n[1] = vertex_output[1].normal;
+        n[2] = vertex_output[2].normal;
+
         EngineM::vec4d ndc[3] = {{v[0] / v[0].w}, {v[1] / v[1].w}, {v[2] / v[2].w}};
 
         EngineM::vec3d p1 = (viewportMatrix * ndc[0]).xyz();
@@ -37,6 +42,9 @@ namespace EngineR {
                 if (alpha < 0 || beta < 0 || gamma < 0) {
                     continue;
                 }
+
+                input.normal = n[0] * alpha + n[1] * beta + n[2] * gamma;
+                input.normal.normalise();
 
                 auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input);
 

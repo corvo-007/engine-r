@@ -16,20 +16,16 @@ namespace EngineR {
 
         VShaderOutput output;
         output.vertex = input.perspectiveMatrix * vertex;
+        output.normal = input.normalMatrix * input.normal;
 
         return output;
     }
 
     std::pair<bool, Color> PhongShader::fragment(EngineM::vec3d bar, const FShaderInput &input) {
-        EngineM::vec3d edge1 = vertices[1] - vertices[0];
-        EngineM::vec3d edge2 = vertices[2] - vertices[0];
 
-        EngineM::vec3d n = edge1 ^ edge2;
-        n.normalise();
+        double ln = light * input.normal;
 
-        double ln = light * n;
-
-        EngineM::vec3d reflected = n * ln * 2 - light;
+        EngineM::vec3d reflected = input.normal * ln * 2 - light;
         reflected.normalise();
 
         Color color = {255, 255, 255, 255};
