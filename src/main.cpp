@@ -45,14 +45,14 @@ int main() {
 
     EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/diablo3_pose.obj");
 
-    std::vector<std::uint32_t> colors = generate_random_numbers(object.n_faces(), 0, 0xffffffff);
-
     EngineR::Renderer renderer(WIDTH, HEIGHT);
     renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
 
     EngineM::vec4d l = renderer.getModelView() * EngineM::vec4d{1, 1, 1, 1};
 
     object.shader = new EngineR::PhongShader(l.xyz(), 64);
+
+    renderer.addObject(object);
 
     bool running = true;
     SDL_Event event;
@@ -62,13 +62,7 @@ int main() {
                 running = false;
         }
 
-        for (int i = 0; i < object.n_faces(); i++) {
-            auto v1 = object.vertex(i, 0);
-            auto v2 = object.vertex(i, 1);
-            auto v3 = object.vertex(i, 2);
-
-            renderer.drawTriangle(v1, v2, v3, object.shader);
-        }
+        renderer.render();
 
         const uint32_t *framebuffer = renderer.getFramebuffer().data();
 

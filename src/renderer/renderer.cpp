@@ -37,6 +37,10 @@ namespace EngineR {
         return t.xyz();
     }
 
+    void Renderer::addObject(const Object &object) {
+        objects.push_back(object);
+    }
+
     void Renderer::lookAt(const EngineM::vec3d &position, const EngineM::vec3d &target, const EngineM::vec3d &up) {
         camera.position = position;
         camera.target = target;
@@ -64,15 +68,26 @@ namespace EngineR {
         line(t3, t4, color, framebuffer);
     }
 
-    void Renderer::drawTriangle(const EngineM::vec3d &p1, const EngineM::vec3d &p2, const EngineM::vec3d &p3, Shader *shader) {
+    void Renderer::drawTriangle(const Face &face, Shader *shader) {
+        VShaderOutput output[3];
+
         VShaderInput input(modelViewMatrix, perspectiveMatrix);
-        auto t1 = shader -> vertex(p1, input);
-        auto t2 = shader -> vertex(p2, input);
-        auto t3 = shader -> vertex(p3, input);
 
-        const EngineM::vec4d v[3] = {t1, t2, t3};
+        for (int i = 0; i < 3; i++) {
+            output[i] = shader -> vertex(face.vertices[i], input);
+        }
 
-        triangle(v, shader, viewportMatrix, framebuffer);
+        triangle(output, shader, viewportMatrix, framebuffer);
+    }
+
+    void Renderer::render() {
+        for (Object &object : objects) {
+            for (int i = 0; i < object.n_faces(); i++) {
+                Face f = object.face(i);
+
+                drawTriangle(f, object.shader);
+            }
+        }
     }
 
     const EngineM::mat4d& Renderer::getModelView() const {

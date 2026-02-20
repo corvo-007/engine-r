@@ -12,13 +12,17 @@ namespace EngineR {
         EngineM::mat4d perspectiveMatrix;
     };
 
+    struct VShaderOutput {
+        EngineM::vec4d vertex;
+    };
+
     struct FShaderInput {
 
     };
 
     class Shader {
     public:
-        virtual EngineM::vec4d vertex(EngineM::vec3d v, const VShaderInput &input) = 0;
+        virtual VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input) = 0;
         [[nodiscard]] virtual std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) = 0;
 
         virtual ~Shader() = default;
@@ -28,7 +32,7 @@ namespace EngineR {
     public:
         Color color;
 
-        EngineM::vec4d vertex(EngineM::vec3d v, const VShaderInput &input) override;
+        VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input) override;
         std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
     };
 }

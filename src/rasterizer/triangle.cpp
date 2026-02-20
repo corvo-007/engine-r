@@ -3,7 +3,12 @@
 #include "engine-r/utils.h"
 
 namespace EngineR {
-    void triangle(const EngineM::vec4d v[3], Shader *shader, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
+    void triangle(const VShaderOutput vertex_output[3], Shader *shader, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
+        EngineM::vec4d v[3];
+        v[0] = vertex_output[0].vertex;
+        v[1] = vertex_output[1].vertex;
+        v[2] = vertex_output[2].vertex;
+
         EngineM::vec4d ndc[3] = {{v[0] / v[0].w}, {v[1] / v[1].w}, {v[2] / v[2].w}};
 
         EngineM::vec3d p1 = (viewportMatrix * ndc[0]).xyz();

@@ -8,12 +8,16 @@ namespace EngineR {
         this -> light.normalise();
     }
 
-    EngineM::vec4d PhongShader::vertex(EngineM::vec3d v, const VShaderInput &input) {
-        EngineM::vec4d result = input.modelViewMatrix * EngineM::vec4d{v, 1};
+    VShaderOutput PhongShader::vertex(EngineM::vec3d v, const VShaderInput &input) {
+        EngineM::vec4d vertex = input.modelViewMatrix * EngineM::vec4d{v, 1};
 
-        vertices[i] = result.xyz();
+        vertices[i] = vertex.xyz();
         i = (i + 1) % 3;
-        return input.perspectiveMatrix * result;
+
+        VShaderOutput output;
+        output.vertex = input.perspectiveMatrix * vertex;
+
+        return output;
     }
 
     std::pair<bool, Color> PhongShader::fragment(EngineM::vec3d bar, const FShaderInput &input) {

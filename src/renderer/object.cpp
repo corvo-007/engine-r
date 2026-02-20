@@ -1,7 +1,7 @@
 #include "engine-r/renderer/object.h"
 
 namespace EngineR {
-    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec3> &face_indices): vertices(vertices), face_indices(face_indices) {
+    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &n_indices): vertices(vertices), normals(normals), v_indices(v_indices), n_indices(n_indices) {
 
     }
 
@@ -10,7 +10,25 @@ namespace EngineR {
     }
 
     EngineM::vec3d Object::vertex(const int face, const int v) const {
-        return vertices[face_indices[face][v]];
+        return vertices[v_indices[face][v]];
+    }
+
+    EngineM::vec3d Object::normal(const int i) const {
+        return normals[i];
+    }
+
+    EngineM::vec3d Object::normal(const int face, const int n) const {
+        return normals[n_indices[face][n]];
+    }
+
+    Face Object::face(const int i) const {
+        Face f;
+        for (int j = 0; j < 3; j++) {
+            f.vertices[j] = vertex(i, j);
+            f.normals[j] = normal(i, j);
+        }
+
+        return f;
     }
 
     unsigned int Object::n_vertices() const {
@@ -18,6 +36,6 @@ namespace EngineR {
     }
 
     unsigned int Object::n_faces() const {
-        return face_indices.size();
+        return v_indices.size();
     }
 }
