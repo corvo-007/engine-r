@@ -1,6 +1,7 @@
 #include "engine-r/renderer/renderer.h"
 
 #include <cmath>
+#include <stdexcept>
 
 #include "engine-r/rasterizer/line.h"
 #include "engine-r/rasterizer/triangle.h"
@@ -86,6 +87,9 @@ namespace EngineR {
 
     void Renderer::render() {
         for (Object &object : objects) {
+            if (!object.shader) {
+                throw std::runtime_error("Renderer::render() called when no shader is set");
+            }
             for (int i = 0; i < object.n_faces(); i++) {
                 Face f = object.face(i);
 

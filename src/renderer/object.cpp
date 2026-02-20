@@ -1,7 +1,7 @@
 #include "engine-r/renderer/object.h"
 
 namespace EngineR {
-    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &n_indices): vertices(vertices), normals(normals), v_indices(v_indices), n_indices(n_indices) {
+    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &n_indices): vertices(vertices), normals(normals), v_indices(v_indices), n_indices(n_indices), shader(nullptr) {
 
     }
 
