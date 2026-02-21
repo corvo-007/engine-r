@@ -11,7 +11,7 @@ namespace EngineR {
         std::ifstream stream(filename);
 
         if (stream.fail()) {
-            return {{}, {}, {}, {}};
+            throw std::runtime_error("Failed to open file");
         }
 
         std::vector<EngineM::vec3d> vertices;
