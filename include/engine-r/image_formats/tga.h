@@ -36,9 +36,12 @@ namespace EngineR {
         TGAImage(int width, int height, int pixel_depth, bool top_to_bottom);
         TGAImage(const std::vector<uint8_t> &image_data, int width, int height, int bytes_per_pixel, bool top_to_bottom);
 
-        Color get(int x, int y) const;
+        [[nodiscard]] Color get(int x, int y) const;
         void set(int x, int y, const Color &color);
 
-        const uint32_t* data() const;
+        int getWidth() const;
+        int getHeight() const;
+
+        [[nodiscard]] const uint32_t* data() const;
     };
 }

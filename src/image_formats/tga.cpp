@@ -48,6 +48,14 @@ namespace EngineR {
         }
     }
 
+    int TGAImage::getWidth() const {
+        return width;
+    }
+
+    int TGAImage::getHeight() const {
+        return height;
+    }
+
     const uint32_t* TGAImage::data() const {
         size_t size = width * height;
         auto *d = new Color[size];
