@@ -1,7 +1,7 @@
 #include "engine-r/renderer/object.h"
 
 namespace EngineR {
-    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &n_indices): vertices(vertices), normals(normals), v_indices(v_indices), n_indices(n_indices), shader(nullptr) {
+    Object::Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec2d> &uv_coords, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &uv_indices, const std::vector<EngineM::vec3> &n_indices): vertices(vertices), uv_coords(uv_coords), normals(normals), v_indices(v_indices), uv_indices(uv_indices), n_indices(n_indices), normal_map(nullptr), shader(nullptr) {
 
     }
 
@@ -31,11 +31,19 @@ namespace EngineR {
         return f;
     }
 
+    void Object::set_normal_map(TGAImage *normal_map) {
+        this -> normal_map = normal_map;
+    }
+
     unsigned int Object::n_vertices() const {
         return vertices.size();
     }
 
     unsigned int Object::n_faces() const {
         return v_indices.size();
+    }
+
+    Object::~Object() {
+        delete normal_map;
     }
 }
