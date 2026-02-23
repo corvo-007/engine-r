@@ -28,7 +28,12 @@ namespace EngineR {
                 iss >> trash >> v[0] >> v[1] >> v[2];
                 vertices.push_back(v);
             }
-            if (line.starts_with("f ")) {
+            else if (line.starts_with("vn ")) {
+                EngineM::vec3d n;
+                iss >> trash >> trash >> n[0] >> n[1] >> n[2];
+                normals.push_back(n);
+            }
+            else if (line.starts_with("f ")) {
                 EngineM::vec3 v_indices;
                 EngineM::vec3 n_indices;
 
@@ -41,11 +46,6 @@ namespace EngineR {
 
                 vertex_indices.push_back(v_indices);
                 normal_indices.push_back(n_indices);
-            }
-            if (line.starts_with("vn ")) {
-                EngineM::vec3d n;
-                iss >> trash >> trash >> n[0] >> n[1] >> n[2];
-                normals.push_back(n);
             }
         }
 
