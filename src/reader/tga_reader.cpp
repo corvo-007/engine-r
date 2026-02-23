@@ -6,7 +6,7 @@
 #include "engine-r/color.h"
 
 namespace EngineR {
-    TGAImage TGAReader::read_tga_image(const std::string &filename) {
+    TGAImage* TGAReader::read_tga_image(const std::string &filename) {
         std::ifstream fin(filename, std::ios::binary);
 
         if (fin.fail()) {
@@ -37,7 +37,7 @@ namespace EngineR {
             throw std::runtime_error("Only image_type 2, 3, 10, and 11 are supported");
         }
 
-        return {image_data, header.width, header.height, bytespp, static_cast<bool>(header.image_descriptor & 0x20)};
+        return new TGAImage(image_data, header.width, header.height, bytespp, static_cast<bool>(header.image_descriptor & 0x20));
     }
 
     void TGAReader::read_rle_data(std::ifstream &fin, const TGAImage::Header &header, uint8_t *data) {
