@@ -46,7 +46,7 @@ namespace EngineR {
 
         void setPoint(const EngineM::vec3d &p, Color color);
         void drawLine(const EngineM::vec3d &p1, const EngineM::vec3d &p2, Color color);
-        void drawTriangle(const Face &face, Shader *shader);
+        void drawTriangle(const Face &face, Shader *shader, const ShaderUniforms &uniforms);
 
         void render();
 

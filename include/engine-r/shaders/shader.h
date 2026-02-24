@@ -7,10 +7,13 @@
 #include "engine-r/color.h"
 
 namespace EngineR {
-    struct VShaderInput {
+    struct ShaderUniforms {
         EngineM::mat4d modelViewMatrix;
         EngineM::mat4d perspectiveMatrix;
         EngineM::mat3d normalMatrix;
+    };
+
+    struct VShaderInput {
         EngineM::vec3d normal;
     };
 
@@ -25,8 +28,8 @@ namespace EngineR {
 
     class Shader {
     public:
-        virtual VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input) = 0;
-        [[nodiscard]] virtual std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) = 0;
+        virtual VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input, const ShaderUniforms &uniforms) = 0;
+        [[nodiscard]] virtual std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input, const ShaderUniforms &uniforms) = 0;
 
         virtual ~Shader() = default;
     };
@@ -35,7 +38,7 @@ namespace EngineR {
     public:
         Color color;
 
-        VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input) override;
-        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
+        VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input, const ShaderUniforms &uniforms) override;
+        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input, const ShaderUniforms &uniforms) override;
     };
 }

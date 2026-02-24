@@ -72,17 +72,15 @@ namespace EngineR {
         line(t3, t4, color, framebuffer);
     }
 
-    void Renderer::drawTriangle(const Face &face, Shader *shader) {
+    void Renderer::drawTriangle(const Face &face, Shader *shader, const ShaderUniforms &uniforms) {
         VShaderOutput output[3];
 
-        VShaderInput input(modelViewMatrix, perspectiveMatrix, normalMatrix);
-
         for (int i = 0; i < 3; i++) {
-            input.normal = face.normals[i];
-            output[i] = shader -> vertex(face.vertices[i], input);
+            VShaderInput input(face.normals[i]);
+            output[i] = shader -> vertex(face.vertices[i], input, uniforms);
         }
 
-        triangle(output, shader, viewportMatrix, framebuffer);
+        triangle(output, shader, uniforms, viewportMatrix, framebuffer);
     }
 
     void Renderer::render() {
@@ -90,10 +88,11 @@ namespace EngineR {
             if (!object.shader) {
                 throw std::runtime_error("Renderer::render() called when no shader is set");
             }
+            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix);
             for (int i = 0; i < object.n_faces(); i++) {
                 Face f = object.face(i);
 
-                drawTriangle(f, object.shader);
+                drawTriangle(f, object.shader, uniforms);
             }
         }
     }

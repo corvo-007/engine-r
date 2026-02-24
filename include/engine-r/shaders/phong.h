@@ -12,7 +12,7 @@ namespace EngineR {
 
         PhongShader(const EngineM::vec3d &light, int shininess);
 
-        VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input) override;
-        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input) override;
+        VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input, const ShaderUniforms &uniforms) override;
+        std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input, const ShaderUniforms &uniforms) override;
     };
 }

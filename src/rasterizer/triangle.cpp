@@ -3,7 +3,7 @@
 #include "engine-r/utils.h"
 
 namespace EngineR {
-    void triangle(const VShaderOutput vertex_output[3], Shader *shader, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
+    void triangle(const VShaderOutput vertex_output[3], Shader *shader, const ShaderUniforms &uniforms, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
         EngineM::vec4d v[3];
         v[0] = vertex_output[0].vertex;
         v[1] = vertex_output[1].vertex;
@@ -46,7 +46,7 @@ namespace EngineR {
                 input.normal = n[0] * alpha + n[1] * beta + n[2] * gamma;
                 input.normal.normalise();
 
-                auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input);
+                auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input, uniforms);
 
                 if (discard) {
                     continue;
