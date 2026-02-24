@@ -73,6 +73,8 @@ int main() {
         SDL_RenderPresent(sdlRenderer);
     }
 
+    delete object.shader;
+
     SDL_DestroyTexture(fbTexture);
     SDL_DestroyRenderer(sdlRenderer);
     SDL_DestroyWindow(window);
