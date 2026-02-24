@@ -28,10 +28,7 @@ namespace EngineR {
 
         Object(const std::vector<EngineM::vec3d> &vertices, const std::vector<EngineM::vec2d> &uv_coords, const std::vector<EngineM::vec3d> &normals, const std::vector<EngineM::vec3> &v_indices, const std::vector<EngineM::vec3> &uv_indices, const std::vector<EngineM::vec3> &n_indices);
 
-        [[nodiscard]] EngineM::vec3d vertex(int i) const;
         [[nodiscard]] EngineM::vec3d vertex(int face, int v) const;
-
-        [[nodiscard]] EngineM::vec3d normal(int i) const;
         [[nodiscard]] EngineM::vec3d normal(int face, int n) const;
 
         [[nodiscard]] Face face(int i) const;

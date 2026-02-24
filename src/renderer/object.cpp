@@ -5,16 +5,8 @@ namespace EngineR {
 
     }
 
-    EngineM::vec3d Object::vertex(const int i) const {
-        return vertices[i];
-    }
-
     EngineM::vec3d Object::vertex(const int face, const int v) const {
         return vertices[v_indices[face][v]];
-    }
-
-    EngineM::vec3d Object::normal(const int i) const {
-        return normals[i];
     }
 
     EngineM::vec3d Object::normal(const int face, const int n) const {
