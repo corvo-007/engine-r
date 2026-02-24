@@ -43,7 +43,7 @@ int main() {
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
-    EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/diablo3_pose.obj");
+    EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/obj/diablo3_pose/diablo3_pose.obj");
 
     EngineR::Renderer renderer(WIDTH, HEIGHT);
     renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
