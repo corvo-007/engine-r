@@ -25,14 +25,8 @@ namespace EngineR {
     }
 
     std::pair<bool, Color> PhongShader::fragment(EngineM::vec3d bar, const FShaderInput &input, const ShaderUniforms &uniforms) {
-        EngineM::vec2 normal_xy = uv_to_xy(input.uv_coords, uniforms.normal_map -> getWidth(), uniforms.normal_map -> getHeight());
-
-        Color normal_c = uniforms.normal_map -> get(normal_xy.x, normal_xy.y);
-        EngineM::vec3d normal = {static_cast<double>(normal_c.r), static_cast<double>(normal_c.g), static_cast<double>(normal_c.b)};
-
-        normal /= 255;
-        normal *= 2;
-        normal -= {1, 1, 1};
+        Color normal_c = sampleTexture(input.uv_coords, uniforms.normal_map);
+        EngineM::vec3d normal = decodeTextureValue(normal_c);
 
         normal = uniforms.normalMatrix * normal;
         normal.normalise();
@@ -42,15 +36,16 @@ namespace EngineR {
         EngineM::vec3d reflected = normal * ln * 2 - light;
         reflected.normalise();
 
-        Color color = {255, 255, 255, 255};
+        Color color = sampleTexture(input.uv_coords, uniforms.diffuse_map);
+        Color specular_c = sampleTexture(input.uv_coords, uniforms.specular_map);
 
         double ambient = .3;
-        double diffuse = .4 * std::max(0., ln);
-        double specular = .9 * std::pow(std::max(0., reflected.z), shininess);
+        double diffuse = std::max(0., ln);
+        double specular = specular_c.r / 255. * std::pow(std::max(0., reflected.z), shininess);
 
-        color.r *= std::min(1., ambient + diffuse + specular);
-        color.g *= std::min(1., ambient + diffuse + specular);
-        color.b *= std::min(1., ambient + diffuse + specular);
+        color.r = std::min<int>(255, color.r * (ambient + diffuse) + 255. * specular);
+        color.g = std::min<int>(255, color.g * (ambient + diffuse) + 255. * specular);
+        color.b = std::min<int>(255, color.b * (ambient + diffuse) + 255. * specular);
 
         return {false, color};
 

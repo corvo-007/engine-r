@@ -24,6 +24,8 @@ namespace EngineR {
         std::vector<EngineM::vec3> n_indices;
 
         std::shared_ptr<TGAImage> normal_map;
+        std::shared_ptr<TGAImage> diffuse_map;
+        std::shared_ptr<TGAImage> specular_map;
 
     public:
         Shader *shader;
@@ -38,6 +40,12 @@ namespace EngineR {
 
         [[nodiscard]] std::shared_ptr<const TGAImage> get_normal_map() const;
         void set_normal_map(std::shared_ptr<TGAImage> normal_map);
+
+        [[nodiscard]] std::shared_ptr<const TGAImage> get_diffuse_map() const;
+        void set_diffuse_map(std::shared_ptr<TGAImage> diffuse_map);
+
+        [[nodiscard]] std::shared_ptr<const TGAImage> get_specular_map() const;
+        void set_specular_map(std::shared_ptr<TGAImage> specular_map);
 
         [[nodiscard]] unsigned int n_vertices() const;
         [[nodiscard]] unsigned int n_faces() const;

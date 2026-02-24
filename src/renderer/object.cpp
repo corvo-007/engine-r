@@ -36,6 +36,22 @@ namespace EngineR {
         this -> normal_map = normal_map;
     }
 
+    std::shared_ptr<const TGAImage> Object::get_diffuse_map() const {
+        return diffuse_map;
+    }
+
+    void Object::set_diffuse_map(std::shared_ptr<TGAImage> diffuse_map) {
+        this -> diffuse_map = diffuse_map;
+    }
+
+    std::shared_ptr<const TGAImage> Object::get_specular_map() const {
+        return specular_map;
+    }
+
+    void Object::set_specular_map(std::shared_ptr<TGAImage> specular_map) {
+        this -> specular_map = specular_map;
+    }
+
     unsigned int Object::n_vertices() const {
         return vertices.size();
     }

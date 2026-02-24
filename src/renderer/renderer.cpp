@@ -88,7 +88,7 @@ namespace EngineR {
             if (!object.shader) {
                 throw std::runtime_error("Renderer::render() called when no shader is set");
             }
-            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix, object.get_normal_map());
+            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix, object.get_normal_map(), object.get_diffuse_map(), object.get_specular_map());
             for (int i = 0; i < object.n_faces(); i++) {
                 Face f = object.face(i);
 

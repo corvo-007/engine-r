@@ -14,6 +14,8 @@ namespace EngineR {
         EngineM::mat4d perspectiveMatrix;
         EngineM::mat3d normalMatrix;
         std::shared_ptr<const TGAImage> normal_map;
+        std::shared_ptr<const TGAImage> diffuse_map;
+        std::shared_ptr<const TGAImage> specular_map;
     };
 
     struct VShaderInput {

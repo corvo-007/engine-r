@@ -16,7 +16,12 @@ namespace EngineR {
         return 0.5 * (p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y));
     }
 
-    EngineM::vec2 uv_to_xy(const EngineM::vec2d &uv, const int &width, const int &height) {
-        return {static_cast<int>(uv.x * width), static_cast<int>(uv.y * height)};
+    Color sampleTexture(const EngineM::vec2d &uv, const std::shared_ptr<const TGAImage> &texture) {
+        return texture -> get(static_cast<int>(uv.x * texture -> getWidth()), static_cast<int>(uv.y * texture -> getHeight()));
+    }
+
+    EngineM::vec3d decodeTextureValue(const Color &color) {
+        EngineM::vec3d v = {static_cast<double>(color.r), static_cast<double>(color.g), static_cast<double>(color.b)};
+        return v / 255 * 2 - EngineM::vec3d{1, 1, 1};
     }
 }

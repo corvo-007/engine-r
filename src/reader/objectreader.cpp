@@ -64,10 +64,15 @@ namespace EngineR {
 
         Object obj(vertices, uv_coords, normals, vertex_indices, uv_indices, normal_indices);
 
-        std::string normal_map_filename = filename.substr(0, filename.find_last_of('.')) + "_nm.tga";
-        if (std::filesystem::exists(normal_map_filename)) {
-            obj.set_normal_map(std::shared_ptr<TGAImage>(load_texture(normal_map_filename)));
-        }
+        std::string file_without_extension = filename.substr(0, filename.find_last_of('.'));
+
+        std::string normal_map_filename = file_without_extension + "_nm.tga";
+        std::string diffuse_map_filename = file_without_extension + "_diffuse.tga";
+        std::string specular_map_filename = file_without_extension + "_spec.tga";
+
+        obj.set_normal_map(std::shared_ptr<TGAImage>(load_texture(normal_map_filename)));
+        obj.set_diffuse_map(std::shared_ptr<TGAImage>(load_texture(diffuse_map_filename)));
+        obj.set_specular_map(std::shared_ptr<TGAImage>(load_texture(specular_map_filename)));
 
         return obj;
     }
