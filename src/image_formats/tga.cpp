@@ -14,7 +14,7 @@ namespace EngineR {
             throw std::out_of_range("x = " + std::to_string(x));
         }
 
-        if (!top_to_bottom) {
+        if (top_to_bottom) {
             y = height - 1 - y;
         }
 
@@ -33,7 +33,7 @@ namespace EngineR {
             throw std::out_of_range("x = " + std::to_string(x));
         }
 
-        if (!top_to_bottom) {
+        if (top_to_bottom) {
             y = height - 1 - y;
         }
 

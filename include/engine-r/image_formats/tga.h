@@ -39,8 +39,8 @@ namespace EngineR {
         [[nodiscard]] Color get(int x, int y) const;
         void set(int x, int y, const Color &color);
 
-        int getWidth() const;
-        int getHeight() const;
+        [[nodiscard]] int getWidth() const;
+        [[nodiscard]] int getHeight() const;
 
         [[nodiscard]] const uint32_t* data() const;
     };

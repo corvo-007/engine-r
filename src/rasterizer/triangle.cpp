@@ -46,6 +46,8 @@ namespace EngineR {
                 input.normal = n[0] * alpha + n[1] * beta + n[2] * gamma;
                 input.normal.normalise();
 
+                input.uv_coords = vertex_output[0].uv_coords * alpha + vertex_output[1].uv_coords * beta + vertex_output[2].uv_coords * gamma;
+
                 auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input, uniforms);
 
                 if (discard) {

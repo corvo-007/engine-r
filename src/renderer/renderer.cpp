@@ -76,7 +76,7 @@ namespace EngineR {
         VShaderOutput output[3];
 
         for (int i = 0; i < 3; i++) {
-            VShaderInput input(face.normals[i]);
+            VShaderInput input(face.normals[i], face.uv_coords[i]);
             output[i] = shader -> vertex(face.vertices[i], input, uniforms);
         }
 
@@ -88,7 +88,7 @@ namespace EngineR {
             if (!object.shader) {
                 throw std::runtime_error("Renderer::render() called when no shader is set");
             }
-            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix);
+            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix, object.get_normal_map());
             for (int i = 0; i < object.n_faces(); i++) {
                 Face f = object.face(i);
 
