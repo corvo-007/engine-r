@@ -28,11 +28,11 @@ namespace EngineR {
         return f;
     }
 
-    const TGAImage *Object::get_normal_map() const {
+     std::shared_ptr<const TGAImage> Object::get_normal_map() const {
         return normal_map;
     }
 
-    void Object::set_normal_map(TGAImage *normal_map) {
+    void Object::set_normal_map(std::shared_ptr<TGAImage> normal_map) {
         this -> normal_map = normal_map;
     }
 
@@ -42,9 +42,5 @@ namespace EngineR {
 
     unsigned int Object::n_faces() const {
         return v_indices.size();
-    }
-
-    Object::~Object() {
-        delete normal_map;
     }
 }

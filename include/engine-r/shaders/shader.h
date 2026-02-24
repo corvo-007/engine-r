@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <utility>
 
 #include "engine-m/vector/vector.h"
@@ -12,7 +13,7 @@ namespace EngineR {
         EngineM::mat4d modelViewMatrix;
         EngineM::mat4d perspectiveMatrix;
         EngineM::mat3d normalMatrix;
-        const TGAImage *normal_map;
+        std::shared_ptr<const TGAImage> normal_map;
     };
 
     struct VShaderInput {

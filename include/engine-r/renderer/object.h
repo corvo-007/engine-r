@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "engine-r/shaders/shader.h"
@@ -22,7 +23,7 @@ namespace EngineR {
         std::vector<EngineM::vec3> uv_indices;
         std::vector<EngineM::vec3> n_indices;
 
-        TGAImage *normal_map;
+        std::shared_ptr<TGAImage> normal_map;
 
     public:
         Shader *shader;
@@ -35,12 +36,10 @@ namespace EngineR {
 
         [[nodiscard]] Face face(int i) const;
 
-        [[nodiscard]] const TGAImage* get_normal_map() const;
-        void set_normal_map(TGAImage *normal_map);
+        [[nodiscard]] std::shared_ptr<const TGAImage> get_normal_map() const;
+        void set_normal_map(std::shared_ptr<TGAImage> normal_map);
 
         [[nodiscard]] unsigned int n_vertices() const;
         [[nodiscard]] unsigned int n_faces() const;
-
-        ~Object();
     };
 }

@@ -66,7 +66,7 @@ namespace EngineR {
 
         std::string normal_map_filename = filename.substr(0, filename.find_last_of('.')) + "_nm.tga";
         if (std::filesystem::exists(normal_map_filename)) {
-            obj.set_normal_map(load_texture(normal_map_filename));
+            obj.set_normal_map(std::shared_ptr<TGAImage>(load_texture(normal_map_filename)));
         }
 
         return obj;
