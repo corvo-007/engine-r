@@ -9,6 +9,10 @@ namespace EngineR {
         return vertices[v_indices[face][v]];
     }
 
+    EngineM::vec2d Object::uv_coord(const int face, const int i) const {
+        return uv_coords[uv_indices[face][i]];
+    }
+
     EngineM::vec3d Object::normal(const int face, const int n) const {
         return normals[n_indices[face][n]];
     }
@@ -18,9 +22,14 @@ namespace EngineR {
         for (int j = 0; j < 3; j++) {
             f.vertices[j] = vertex(i, j);
             f.normals[j] = normal(i, j);
+            f.uv_coords[j] = uv_coord(i, j);
         }
 
         return f;
+    }
+
+    const TGAImage *Object::get_normal_map() const {
+        return normal_map;
     }
 
     void Object::set_normal_map(TGAImage *normal_map) {
