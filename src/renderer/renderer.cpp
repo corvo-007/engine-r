@@ -14,12 +14,9 @@ namespace EngineR {
     }
 
     void Renderer::calculateModelViewMatrix() {
-        EngineM::vec3d n = camera.position - camera.target;
-        n.normalise();
-        EngineM::vec3d l = camera.up ^ n;
-        l.normalise();
-        EngineM::vec3d m = n ^ l;
-        m.normalise();
+        EngineM::vec3d n = (camera.position - camera.target).normalise();
+        EngineM::vec3d l = (camera.up ^ n).normalise();
+        EngineM::vec3d m = (n ^ l).normalise();
 
         modelViewMatrix = EngineM::mat4d{{l.x, l.y, l.z, 0, m.x, m.y, m.z, 0, n.x, n.y, n.z, 0, 0, 0, 0, 1}} * EngineM::mat4d{{1, 0, 0, -camera.target.x, 0, 1, 0, -camera.target.y, 0, 0, 1, -camera.target.z, 0, 0, 0, 1}};
         normalMatrix = EngineM::mat3d{{l.x, l.y, l.z, m.x, m.y, m.z, n.x, n.y, n.z}};

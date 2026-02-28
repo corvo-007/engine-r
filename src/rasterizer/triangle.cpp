@@ -43,8 +43,7 @@ namespace EngineR {
                     continue;
                 }
 
-                input.normal = n[0] * alpha + n[1] * beta + n[2] * gamma;
-                input.normal.normalise();
+                input.normal = (n[0] * alpha + n[1] * beta + n[2] * gamma).normalise();
 
                 input.uv_coords = vertex_output[0].uv_coords * alpha + vertex_output[1].uv_coords * beta + vertex_output[2].uv_coords * gamma;
 

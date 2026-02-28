@@ -28,13 +28,11 @@ namespace EngineR {
         Color normal_c = sampleTexture(input.uv_coords, uniforms.normal_map);
         EngineM::vec3d normal = decodeTextureValue(normal_c);
 
-        normal = uniforms.normalMatrix * normal;
-        normal.normalise();
+        normal = (uniforms.normalMatrix * normal).normalise();
 
         double ln = light * normal;
 
-        EngineM::vec3d reflected = normal * ln * 2 - light;
-        reflected.normalise();
+        EngineM::vec3d reflected = (normal * ln * 2 - light).normalise();
 
         Color color = sampleTexture(input.uv_coords, uniforms.diffuse_map);
         Color specular_c = sampleTexture(input.uv_coords, uniforms.specular_map);
