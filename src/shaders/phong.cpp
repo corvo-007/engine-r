@@ -6,8 +6,8 @@
 #include "engine-r/utils.h"
 
 namespace EngineR {
-    PhongShader::PhongShader(const EngineM::vec3d &light, int shininess): vertices{}, light(light), shininess(shininess), i{} {
-        this -> light.normalise();
+    PhongShader::PhongShader(int shininess): vertices{}, uv_coords{}, shininess(shininess), i{} {
+
     }
 
     VShaderOutput PhongShader::vertex(EngineM::vec3d v, const VShaderInput &input, const ShaderUniforms &uniforms) {
@@ -63,9 +63,9 @@ namespace EngineR {
 
         normal = (basis * normal).normalise();
 
-        double ln = light * normal;
+        double ln = uniforms.lightPos * normal;
 
-        EngineM::vec3d reflected = (normal * ln * 2 - light).normalise();
+        EngineM::vec3d reflected = (normal * ln * 2 - uniforms.lightPos).normalise();
 
         Color color = sampleTexture(input.uv_coords, uniforms.diffuse_map);
         Color specular_c = sampleTexture(input.uv_coords, uniforms.specular_map);

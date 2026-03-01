@@ -16,6 +16,7 @@ namespace EngineR {
         std::shared_ptr<const TGAImage> normal_map;
         std::shared_ptr<const TGAImage> diffuse_map;
         std::shared_ptr<const TGAImage> specular_map;
+        EngineM::vec3d lightPos;
     };
 
     struct VShaderInput {

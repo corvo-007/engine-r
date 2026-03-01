@@ -28,6 +28,7 @@ namespace EngineR {
         Framebuffer framebuffer;
 
         std::vector<Object> objects;
+        EngineM::vec3d lightPos;
 
     public:
         Renderer(int width, int height);
@@ -40,6 +41,7 @@ namespace EngineR {
 
     public:
         void addObject(const Object &object);
+        void setLight(const EngineM::vec3d &lightPos);
 
         void lookAt(const EngineM::vec3d &position, const EngineM::vec3d &target, const EngineM::vec3d &up);
         void setViewport(int x, int y, int w, int h);

@@ -42,6 +42,10 @@ namespace EngineR {
         objects.push_back(object);
     }
 
+    void Renderer::setLight(const EngineM::vec3d &lightPos) {
+        this -> lightPos = lightPos;
+    }
+
     void Renderer::lookAt(const EngineM::vec3d &position, const EngineM::vec3d &target, const EngineM::vec3d &up) {
         camera.position = position;
         camera.target = target;
@@ -85,7 +89,7 @@ namespace EngineR {
             if (!object.shader) {
                 throw std::runtime_error("Renderer::render() called when no shader is set");
             }
-            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix, object.get_normal_map(), object.get_diffuse_map(), object.get_specular_map());
+            ShaderUniforms uniforms(modelViewMatrix, perspectiveMatrix, normalMatrix, object.get_normal_map(), object.get_diffuse_map(), object.get_specular_map(), (modelViewMatrix * EngineM::vec4d(lightPos, 1)).xyz());
             for (int i = 0; i < object.n_faces(); i++) {
                 Face f = object.face(i);
 

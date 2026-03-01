@@ -7,11 +7,10 @@ namespace EngineR {
     public:
         EngineM::vec3d vertices[3];
         EngineM::vec2d uv_coords[3];
-        EngineM::vec3d light;
         int shininess;
         int i;
 
-        PhongShader(const EngineM::vec3d &light, int shininess);
+        PhongShader(int shininess);
 
         VShaderOutput vertex(EngineM::vec3d v, const VShaderInput &input, const ShaderUniforms &uniforms) override;
         std::pair<bool, Color> fragment(EngineM::vec3d bar, const FShaderInput &input, const ShaderUniforms &uniforms) override;

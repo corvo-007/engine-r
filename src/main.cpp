@@ -48,9 +48,9 @@ int main() {
     EngineR::Renderer renderer(WIDTH, HEIGHT);
     renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
 
-    EngineM::vec4d l = renderer.getModelView() * EngineM::vec4d{1, 1, 1, 1};
+    renderer.setLight({1, 1, 1});
 
-    object.shader = new EngineR::PhongShader(l.xyz(), 64);
+    object.shader = new EngineR::PhongShader(64);
 
     renderer.addObject(object);
 
