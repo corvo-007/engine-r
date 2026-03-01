@@ -6,6 +6,7 @@ namespace EngineR {
     class PhongShader : public Shader {
     public:
         EngineM::vec3d vertices[3];
+        EngineM::vec2d uv_coords[3];
         EngineM::vec3d light;
         int shininess;
         int i;

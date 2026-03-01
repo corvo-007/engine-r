@@ -27,11 +27,13 @@ namespace EngineR {
         EngineM::vec4d vertex;
         EngineM::vec3d normal;
         EngineM::vec2d uv_coords;
+        EngineM::mat3x2d TB;
     };
 
     struct FShaderInput {
         EngineM::vec3d normal;
         EngineM::vec2d uv_coords;
+        EngineM::mat3x2d TB;
     };
 
     class Shader {

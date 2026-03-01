@@ -47,6 +47,8 @@ namespace EngineR {
 
                 input.uv_coords = vertex_output[0].uv_coords * alpha + vertex_output[1].uv_coords * beta + vertex_output[2].uv_coords * gamma;
 
+                input.TB = vertex_output[2].TB;
+
                 auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input, uniforms);
 
                 if (discard) {

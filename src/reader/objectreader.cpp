@@ -66,7 +66,7 @@ namespace EngineR {
 
         std::string file_without_extension = filename.substr(0, filename.find_last_of('.'));
 
-        std::string normal_map_filename = file_without_extension + "_nm.tga";
+        std::string normal_map_filename = file_without_extension + "_nm_tangent.tga";
         std::string diffuse_map_filename = file_without_extension + "_diffuse.tga";
         std::string specular_map_filename = file_without_extension + "_spec.tga";
 
