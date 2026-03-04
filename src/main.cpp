@@ -34,7 +34,7 @@ std::vector<std::uint32_t> generate_random_numbers(size_t n, int start, int end)
     return numbers;
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     constexpr int WIDTH = 1080, HEIGHT = 1080;
 
     SDL_Init(SDL_INIT_VIDEO);
@@ -43,16 +43,18 @@ int main() {
     SDL_Renderer *sdlRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_Texture *fbTexture = SDL_CreateTexture(sdlRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
 
-    EngineR::Object object = EngineR::ObjectReader::read_object("/home/corvo/code/engine-r/obj/diablo3_pose/diablo3_pose.obj");
-
     EngineR::Renderer renderer(WIDTH, HEIGHT);
+    EngineR::Shader *shader = new EngineR::PhongShader(64);
+
+    for (int i = 1; i < argc; i++) {
+        EngineR::Object object = EngineR::ObjectReader::read_object(argv[i]);
+        object.shader = shader;
+        renderer.addObject(object);
+    }
+
     renderer.lookAt({0, 0, 2}, {0, 0, 0}, {0, 1, 0});
 
     renderer.setLight({1, 1, 1});
-
-    object.shader = new EngineR::PhongShader(64);
-
-    renderer.addObject(object);
 
     bool running = true;
     SDL_Event event;
@@ -74,7 +76,7 @@ int main() {
         SDL_RenderPresent(sdlRenderer);
     }
 
-    delete object.shader;
+    delete shader;
 
     SDL_DestroyTexture(fbTexture);
     SDL_DestroyRenderer(sdlRenderer);
