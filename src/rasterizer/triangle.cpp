@@ -43,13 +43,16 @@ namespace EngineR {
                     continue;
                 }
 
-                input.normal = (n[0] * alpha + n[1] * beta + n[2] * gamma).normalise();
+                EngineM::vec3d bc = {alpha / v[0].w, beta / v[1].w, gamma / v[2].w};
+                bc /= bc[0] + bc[1] + bc[2];
 
-                input.uv_coords = vertex_output[0].uv_coords * alpha + vertex_output[1].uv_coords * beta + vertex_output[2].uv_coords * gamma;
+                input.normal = (n[0] * bc[0] + n[1] * bc[1] + n[2] * bc[2]).normalise();
+
+                input.uv_coords = vertex_output[0].uv_coords * bc[0] + vertex_output[1].uv_coords * bc[1] + vertex_output[2].uv_coords * bc[2];
 
                 input.TB = vertex_output[2].TB;
 
-                auto [discard, color] = shader -> fragment({alpha, beta, gamma}, input, uniforms);
+                auto [discard, color] = shader -> fragment(bc, input, uniforms);
 
                 if (discard) {
                     continue;
