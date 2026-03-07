@@ -11,7 +11,7 @@ namespace EngineR {
 
     Color TGAImage::get(int x, int y) const {
         if (x < 0 || x >= width || y < 0 || y >= height) {
-            throw std::out_of_range("x = " + std::to_string(x));
+            return {};
         }
 
         if (top_to_bottom) {
