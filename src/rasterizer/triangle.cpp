@@ -26,15 +26,15 @@ namespace EngineR {
             return ;
         }
 
-        int p_min_x = static_cast<int>(p_min.x);
-        int p_min_y = static_cast<int>(p_min.y);
-        int p_max_x = static_cast<int>(p_max.x);
-        int p_max_y = static_cast<int>(p_max.y);
+        int frame_x_start = std::max(0, static_cast<int>(p_min.x));
+        int frame_y_start = std::max(0, static_cast<int>(p_min.y));
+        int frame_x_end = std::min(static_cast<int>(p_max.x), framebuffer.width());
+        int frame_y_end = std::min(static_cast<int>(p_max.y), framebuffer.height());
 
         FShaderInput input;
 
-        for (int y = p_min_y; y <= p_max_y; y++) {
-            for (int x = p_min_x; x <= p_max_x; x++) {
+        for (int y = frame_y_start; y <= frame_y_end; y++) {
+            for (int x = frame_x_start; x <= frame_x_end; x++) {
                 double alpha = signed_triangle_area({x, y, 0}, p2, p3) / total_signed_area;
                 double beta = signed_triangle_area(p1, {x, y, 0}, p3) / total_signed_area;
                 double gamma = signed_triangle_area(p1, p2, {x, y, 0}) / total_signed_area;
