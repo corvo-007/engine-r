@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engine-r/color.h"
-#include "framebuffer.h"
+#include "buffer.h"
 #include "object.h"
 #include "engine-r/shaders/shader.h"
 #include "engine-m/matrix/matrix.h"
@@ -25,7 +25,8 @@ namespace EngineR {
         EngineM::mat3d normalMatrix;
         Camera camera;
 
-        Framebuffer framebuffer;
+        Buffer<Color> framebuffer;
+        Buffer<double> zbuffer;
 
         std::vector<Object> objects;
         EngineM::vec3d lightPos;
@@ -54,6 +55,6 @@ namespace EngineR {
 
         [[nodiscard]] const EngineM::mat4d& getModelView() const;
 
-        [[nodiscard]] const Framebuffer& getFramebuffer() const;
+        [[nodiscard]] const Buffer<Color>& getFramebuffer() const;
     };
 }

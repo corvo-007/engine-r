@@ -9,7 +9,7 @@
 namespace EngineR {
     Camera::Camera(EngineM::vec3d position, EngineM::vec3d target, EngineM::vec3d up): position(position), target(target), up(up) {}
 
-    Renderer::Renderer(const int width, const int height) : framebuffer(width, height) {
+    Renderer::Renderer(const int width, const int height) : framebuffer(width, height), zbuffer(width, height, std::numeric_limits<double>::lowest()) {
         setViewport(0, 0, width, height);
     }
 
@@ -81,7 +81,7 @@ namespace EngineR {
             output[i] = shader -> vertex(face.vertices[i], input, uniforms);
         }
 
-        triangle(output, shader, uniforms, viewportMatrix, framebuffer);
+        triangle(output, shader, uniforms, viewportMatrix, framebuffer, zbuffer);
     }
 
     void Renderer::render() {
@@ -102,7 +102,7 @@ namespace EngineR {
         return modelViewMatrix;
     }
 
-    const Framebuffer& Renderer::getFramebuffer() const {
+    const Buffer<Color>& Renderer::getFramebuffer() const {
         return framebuffer;
     }
 }

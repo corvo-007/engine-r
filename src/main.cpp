@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
 
         renderer.render();
 
-        const uint32_t *framebuffer = renderer.getFramebuffer().data();
+        const EngineR::Color *framebuffer = renderer.getFramebuffer().data();
 
         SDL_UpdateTexture(fbTexture, nullptr, framebuffer, WIDTH * sizeof(uint32_t));
 

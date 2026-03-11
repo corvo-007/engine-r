@@ -3,7 +3,7 @@
 #include "engine-r/utils.h"
 
 namespace EngineR {
-    void triangle(const VShaderOutput vertex_output[3], Shader *shader, const ShaderUniforms &uniforms, const EngineM::mat4d &viewportMatrix, Framebuffer &framebuffer) {
+    void triangle(const VShaderOutput vertex_output[3], Shader *shader, const ShaderUniforms &uniforms, const EngineM::mat4d &viewportMatrix, Buffer<Color> &framebuffer, Buffer<double> &zbuffer) {
         EngineM::vec4d v[3];
         v[0] = vertex_output[0].vertex;
         v[1] = vertex_output[1].vertex;
@@ -59,8 +59,8 @@ namespace EngineR {
                 }
 
                 double z = alpha * p1.z + beta * p2.z + gamma * p3.z;
-                if (framebuffer.get_z(x, y) < z) {
-                    framebuffer.set_z(x, y, z);
+                if (zbuffer.get(x, y) < z) {
+                    zbuffer.set(x, y, z);
                     framebuffer.set(x, y, color);
                 }
             }
