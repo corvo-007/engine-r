@@ -35,9 +35,9 @@ namespace EngineR {
 
         for (int y = frame_y_start; y <= frame_y_end; y++) {
             for (int x = frame_x_start; x <= frame_x_end; x++) {
-                double alpha = signed_triangle_area({x, y, 0}, p2, p3) / total_signed_area;
-                double beta = signed_triangle_area(p1, {x, y, 0}, p3) / total_signed_area;
-                double gamma = signed_triangle_area(p1, p2, {x, y, 0}) / total_signed_area;
+                double alpha = signed_triangle_area({static_cast<double>(x), static_cast<double>(y), 0}, p2, p3) / total_signed_area;
+                double beta = signed_triangle_area(p1, {static_cast<double>(x), static_cast<double>(y), 0}, p3) / total_signed_area;
+                double gamma = signed_triangle_area(p1, p2, {static_cast<double>(x), static_cast<double>(y), 0}) / total_signed_area;
 
                 if (alpha < 0 || beta < 0 || gamma < 0) {
                     continue;
