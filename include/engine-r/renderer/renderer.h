@@ -52,6 +52,7 @@ namespace EngineR {
         void drawTriangle(const Face &face, Shader *shader, const ShaderUniforms &uniforms);
 
         void render();
+        void clear(Color color = Color{0, 0, 0, 0});
 
         [[nodiscard]] const EngineM::mat4d& getModelView() const;
 

@@ -33,6 +33,10 @@ namespace EngineR {
             }
         }
 
+        void clear(const T &value) {
+            std::fill(buffer.begin(), buffer.end(), value);
+        }
+
         [[nodiscard]] int width() const {
             return w;
         }

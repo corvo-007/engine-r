@@ -98,6 +98,11 @@ namespace EngineR {
         }
     }
 
+    void Renderer::clear(Color color) {
+        framebuffer.clear(color);
+        zbuffer.clear(std::numeric_limits<double>::lowest());
+    }
+
     const EngineM::mat4d& Renderer::getModelView() const {
         return modelViewMatrix;
     }

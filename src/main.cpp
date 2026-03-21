@@ -74,6 +74,7 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(sdlRenderer);
         SDL_RenderCopy(sdlRenderer, fbTexture, nullptr, nullptr);
         SDL_RenderPresent(sdlRenderer);
+        renderer.clear();
     }
 
     delete shader;
