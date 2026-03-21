@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 
 #include "engine-m/vector/vector.h"
 #include "engine-r/color.h"

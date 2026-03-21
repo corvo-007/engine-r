@@ -1,7 +1,6 @@
 #pragma once
-#include <vector>
 
-#include "engine-r/color.h"
+#include <vector>
 
 namespace EngineR {
 
